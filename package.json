@@ -41,7 +41,7 @@
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "clean": "del-cli android/build ex/android/build example/android/app/build ex/ios/build lib",
     "prepare": "bob build",
     "release": "release-it"
   },

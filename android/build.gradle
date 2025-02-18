@@ -6,7 +6,12 @@ buildscript {
   repositories {
     google()
     mavenCentral()
-
+    maven {
+      url = uri("https://maven.google.com/")
+    }
+    maven {
+      url = uri("https://android-sdk.is.com/")
+    }
   }
 
   dependencies {
@@ -42,6 +47,14 @@ def supportsNamespace() {
 }
 
 android {
+
+  defaultConfig {
+        externalNativeBuild {
+            cmake {
+                arguments "-DCMAKE_OBJECT_PATH_MAX=200"
+            }
+        }
+    }
   if (supportsNamespace()) {
     namespace "com.rnironsourceadapteradmobmediation"
 
@@ -75,9 +88,9 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+}
 
   sourceSets {
     main {
@@ -91,9 +104,20 @@ android {
   }
 }
 
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://android-sdk.is.com/" }  // ✅ IronSource Maven repository
+    }
+}
+
 repositories {
   mavenCentral()
   google()
+  maven {
+    url = uri("https://maven.google.com/")
+  }
   maven {
     url = uri("https://android-sdk.is.com/")
   }
@@ -105,10 +129,10 @@ dependencies {
   implementation 'com.facebook.react:react-android:0.76.7'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "com.google.android.gms:play-services-ads:23.6.0"
-  implementation "com.ironsource.sdk:mediationsdk:8.6.1"
   implementation "com.google.ads.mediation:ironsource:8.6.1.0"
+  implementation "com.ironsource.sdk:mediationsdk:8.6.1"
   implementation "com.facebook.react:react-android:0.76.7"
-  implementation 'androidx.android:browser:1.4.0'
+  implementation "androidx.browser:browser:1.8.0"
 }
 
 if (isNewArchitectureEnabled()) {
